@@ -16,5 +16,5 @@ A small jupyter notebook which is used to highlight variant .pdb files using py3
 
 4. **Install the requirements:**
    ```sh
-   pip install -e .
+   pip requirements.txt
    ```
