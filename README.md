@@ -23,3 +23,8 @@ A small jupyter notebook which is used to highlight variant .pdb files using py3
    ```sh
    pip install -r requirements.txt
    ```
+
+5. **Run the streamlit application:**
+   ```sh
+   streamlit run run_pdb_vis.py
+   ```
