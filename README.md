@@ -8,7 +8,12 @@ A small jupyter notebook which is used to highlight variant .pdb files using py3
    cd variant_visualization
    ```
 
-2. **Create a virtual environment and activate it:**
+2. **Install python3-virtualenv:**
+   ```sh
+   sudo apt-get install python3-venv
+   ```
+
+3. **Create a virtual environment and activate it:**
    ```sh
    python3 -m venv venv
    source venv/bin/activate
