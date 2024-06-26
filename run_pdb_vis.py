@@ -23,7 +23,8 @@ st.markdown("This is a streamlit webapp which visualizes pdb files")
 cwd = os.getcwd()
 esm_input_folder = str(cwd) + "/esm_files/"
 alphafold_input_folder = str(cwd) + "/alphafold_files/"
-
+esm_wildtypes = str(cwd) + "/esmfold_wildtypes/"
+alphafold_wildtypes = str(cwd) + "/Alphafold_wildtypes/"
 
 st.sidebar.title("About")
 st.sidebar.markdown("This streamlit webapps highlights the position of genetic variants in their corresponding 3-D protein structure")
@@ -35,12 +36,18 @@ selected_model = st.sidebar.radio("Please select the desired Model",["alphafold"
 
 if selected_model == "alphafold":
     input_folder = alphafold_input_folder
+    wildtype_folder = alphafold_wildtypes
 else:
     input_folder = esm_input_folder
+    wildtype_folder = esm_wildtypes
 
 cols_filter = st.columns(3)
 selected_variant = cols_filter[0].multiselect("variant",os.listdir(input_folder),max_selections=1)
-position = str(cols_filter[1].text_input("Protein Position"))
+if len(selected_variant)!=0:
+    selected_position = selected_variant[0].split("_")[2].split(".")[0]
+else:
+    selected_position=str(0)
+position = str(cols_filter[1].text_input("Protein Position",value=selected_position))
 highlight_colour = str(cols_filter[2].text_input("highlight colour", value="cyan"))
 
 cols_rotation = st.columns(3)
@@ -52,8 +59,10 @@ style = st.selectbox("Select stlye",["stick","cartoon","sphere","cartoon_stick"]
 
 if len(selected_variant)!=0:
     st.write("selected variant file " + selected_variant[0])
+    selected_wildtype = selected_variant[0].split("_")[0]
     input_pdb = input_folder+selected_variant[0]
-    view = highlight_AA.color_pdb(input_pdb,position,highlight_colour,style)
+    wildtype_pdb = wildtype_folder + selected_wildtype + ".pdb"
+    view = highlight_AA.color_pdb(input_pdb,position,highlight_colour,style,wildtype_pdb)
     view.rotate(x,"x")
     view.rotate(y,"y")
     view.rotate(z,"z")
